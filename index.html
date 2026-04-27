@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulačka rozpočtu PC sestavy</title>
+</head>
+<body>
+    <h1>Kalkulačka rozpočtu PC sestavy</h1>
+    
+    <label for="type">Typ sestavy:</label><br>
+    <select id="type">
+        <option value="15000">Kancelářská (15 000 Kč)</option>
+        <option value="35000">Herní/grafická (35 000 Kč)</option>
+    </select><br><br>
+    
+    <label for="cpu">Cena CPU (Kč):</label><br>
+    <input type="number" id="cpu" min="0"><br>
+    
+    <label for="motherboard">Cena základní desky (Kč):</label><br>
+    <input type="number" id="motherboard" min="0"><br>
+    
+    <label for="ram">Cena RAM (Kč):</label><br>
+    <input type="number" id="ram" min="0"><br>
+    
+    <label for="ssd">Cena SSD (Kč):</label><br>
+    <input type="number" id="ssd" min="0"><br>
+    
+    <label for="psu">Cena zdroje (Kč):</label><br>
+    <input type="number" id="psu" min="0"><br>
+    
+    <label for="case">Cena skříně (Kč):</label><br>
+    <input type="number" id="case" min="0"><br>
+    
+    <label for="gpu">Cena grafické karty (Kč):</label><br>
+    <input type="number" id="gpu" min="0"><br>
+    
+    <button onclick="calculate()">Spočítat</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function calculate() {
+            const budget = parseInt(document.getElementById('type').value);
+            const cpu = parseFloat(document.getElementById('cpu').value) || 0;
+            const motherboard = parseFloat(document.getElementById('motherboard').value) || 0;
+            const ram = parseFloat(document.getElementById('ram').value) || 0;
+            const ssd = parseFloat(document.getElementById('ssd').value) || 0;
+            const psu = parseFloat(document.getElementById('psu').value) || 0;
+            const casePrice = parseFloat(document.getElementById('case').value) || 0;
+            const gpu = parseFloat(document.getElementById('gpu').value) || 0;
+            
+            const total = cpu + motherboard + ram + ssd + psu + casePrice + gpu;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Celková cena: ${total.toFixed(0)} Kč<br>`;
+            
+            if (total <= budget) {
+                resultDiv.innerHTML += 'Sestava se vejde do rozpočtu.';
+            } else {
+                resultDiv.innerHTML += 'Sestava překračuje rozpočet.';
+            }
+        }
+    </script>
+</body>
+</html>
